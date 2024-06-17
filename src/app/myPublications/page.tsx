@@ -44,7 +44,7 @@ export default function MyPublications() {
   return (
     <>
     <NavBar/>
-    <Card cards={cards}/>
+    <Card cards={cards} showAdminButtons={true}/>
     </>
     
   );

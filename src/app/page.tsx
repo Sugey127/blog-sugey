@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -43,9 +43,11 @@ export default function Home() {
                     <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
                       Login
                     </button>
+                    <Link href="/singUp" legacyBehavior>
                     <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
                       Sign Up
                     </button>
+                    </Link>
                   </div>
                   <button className="bg-gray-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded w-full mt-4 transition duration-200">
                     Forgot Password
