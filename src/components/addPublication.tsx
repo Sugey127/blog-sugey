@@ -1,36 +1,39 @@
+import { inyectionContainer } from '@/features/shared/infra/inyection-container';
 import React, { useState } from 'react';
 
 export default function AddPublication({ isOpen, onClose, onSubmit }) {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const handleImageChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+    setImageFile(e.target.files[0]);
   };
 
   const handleOpenConfirm = () => {
     setIsConfirmOpen(true);
   };
 
-  const handleCloseConfirm = () => {
+  const handleCloseConfirm = async () => {
     setIsConfirmOpen(false);
+    const { localPostRepository } = inyectionContainer();
+    await localPostRepository.getAll();
   };
 
-  const handleSubmit = () => {
-    onSubmit({ name, description, profilePicture });
-    setName('');
+  const handleSubmit = async () => {
+    onSubmit({ title, description, imageFile });
+    setTitle('');
     setDescription('');
-    setProfilePicture(null);
+    setImageFile(null);
     handleCloseConfirm();
     onClose();
   };
 
   const handleCloseModal = () => {
-    setName('');
+    setTitle('');
     setDescription('');
-    setProfilePicture(null);
+    setImageFile(null);
     onClose();
   };
 
@@ -49,22 +52,22 @@ export default function AddPublication({ isOpen, onClose, onSubmit }) {
             <button onClick={handleCloseModal} className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">&times;</button>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="profilePicture">Profile Picture</label>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="imageFile">Profile Picture</label>
             <input
               type="file"
-              id="profilePicture"
+              id="imageFile"
               className="w-full text-black dark:text-white p-2 border border-gray-300 rounded"
               onChange={handleImageChange}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="name">Name</label>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="title">Title</label>
             <input
               type="text"
-              id="name"
+              id="title"
               className="w-full text-black dark:text-black p-2 border border-gray-300 rounded"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="mb-4">

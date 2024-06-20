@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AddPublication from "@/components/addPublication";
+import { inyectionContainer } from '@/features/shared/infra/inyection-container';
+
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -18,9 +20,13 @@ const NavBar = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddPublication = (data) => {
-    const { name, description, profilePicture } = data;      // Aquí, manejarías la lógica para agregar la publicación, por ejemplo, enviándola a un servidor
-      console.log('Publication added:', { name, description, profilePicture });
+  const handleAddPublication = async (data) => {
+    const { title, description, imageFile } = data;  
+    const { localPostRepository } = inyectionContainer();
+    await localPostRepository.create(data)
+    
+    
+      console.log('Publication added:', { title, description, imageFile });
       handleCloseModal();
   };
 

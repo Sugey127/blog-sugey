@@ -1,8 +1,11 @@
 import NavBar from '@/app/navbar';
 import Card from '@/components/card';
+import { inyectionContainer } from '@/features/shared/infra/inyection-container';
 
-export default function Publications() {
-  const cards = [
+export default async function Publications() {
+  const { localPostRepository } = inyectionContainer();
+  
+  const defaultCards = [
     {
       image: 'https://images4.alphacoders.com/115/thumb-1920-115716.jpg',
       title: 'Best Mountain Trails 2020',
@@ -32,11 +35,14 @@ export default function Publications() {
     },
   ];
 
+  console.log(await localPostRepository.getAll())
+  const storedPublications = await localPostRepository.getAll();
+  const cards = [...defaultCards, ...storedPublications];
+
   return (
     <>
     <NavBar/>
     <Card cards={cards} showAdminButtons={false}/>
     </>
-    
   );
 }
