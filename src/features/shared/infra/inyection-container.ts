@@ -1,14 +1,18 @@
 import { PostRespository } from "@/features/posts/domain/post-repository";
-import { CommentRepository } from "@/features/comments/domain/comment-respository";
-import { LocalCommentRepository } from "@/features/comments/infra/local-comment-repository";
-import { LocalPostRepository } from "@/features/posts/infra/local-post-repository";
+import { ApiPostRepository } from "@/features/posts/infra/api-post-repository";
+import { ApiCommentRepository } from "@/features/posts/infra/api-comment-repository";
+import { CommentRepository } from "@/features/posts/domain/comment-respository";
+import { AccountRepository } from "@/features/users/domain/account-repository";
+import { ApiAccountRepository } from "@/features/users/infra/api-account-repository";
 
 export function inyectionContainer() {
-  const localCommentRepository: CommentRepository = new LocalCommentRepository();
-  const localPostRepository: PostRespository = new LocalPostRepository();
+  const apiCommentRepository: CommentRepository = new ApiCommentRepository();
+  const apiPostRepository: PostRespository = new ApiPostRepository();
+  const apiAccountRepository: AccountRepository = new ApiAccountRepository();
 
   return {
-    localCommentRepository,
-    localPostRepository
+    apiCommentRepository,
+    apiPostRepository,
+    apiAccountRepository,
   }
 }

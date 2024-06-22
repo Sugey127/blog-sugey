@@ -3,8 +3,8 @@ import { User } from "@/features/users/domain/user";
 export interface Post {
   id: string;
   title: string;
-  description: string;
-  imageURL: File;
+  content: string;
+  multimediaURL: string;
   user:  User;
-  createdAt: string;
+  // createdAt: string;
 }

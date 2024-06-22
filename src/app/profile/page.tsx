@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import NavBar from '@/app/navbar';
+import { Navbar } from '@/components/navigators/navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -20,7 +20,7 @@ export default function Profile() {
 
   return (
     <>
-      <NavBar />
+      <Navbar />
       <div className="h-screen bg-gray-200 dark:bg-gray-800 flex flex-wrap items-center justify-center">
         <div className="container lg:w-2/6 xl:w-2/7 sm:w-full md:w-2/3 bg-white shadow-lg transform duration-200 ease-in-out">
           <div className="h-32 overflow-hidden">

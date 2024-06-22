@@ -43,7 +43,7 @@ export default function Home() {
                     <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
                       Login
                     </button>
-                    <Link href="/singUp" legacyBehavior>
+                    <Link href="/sing-up" legacyBehavior>
                     <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
                       Sign Up
                     </button>

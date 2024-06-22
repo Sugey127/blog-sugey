@@ -1,5 +1,5 @@
-import NavBar from '@/app/navbar';
 import Card from '@/components/card';
+import { Navbar } from '@/components/navigators/navbar';
 
 export default function MyPublications() {
   const cards = [
@@ -43,7 +43,7 @@ export default function MyPublications() {
 
   return (
     <>
-    <NavBar/>
+    <Navbar/>
     <Card cards={cards} showAdminButtons={true}/>
     </>
     

@@ -1,34 +1,12 @@
 "use client";
-
-import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import AddPublication from "@/components/addPublication";
-import { inyectionContainer } from '@/features/shared/infra/inyection-container';
+import { Avatar } from "../users/avatar";
+import { Suspense } from "react";
 
-
-const NavBar = () => {
+export function Navbar() {
   const pathname = usePathname();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleAddPublication = async (data) => {
-    const { title, description, imageFile } = data;  
-    const { localPostRepository } = inyectionContainer();
-    await localPostRepository.create(data)
-    
-    
-      console.log('Publication added:', { title, description, imageFile });
-      handleCloseModal();
-  };
 
   return (
     <nav className="bg-[#212121] shadow-lg w-full px-8 md:px-auto">
@@ -87,11 +65,8 @@ const NavBar = () => {
             </li>
           </ul>
         </div>
-        <div className="flex gap-4 order-2 md:order-3"> 
-        <button 
-            onClick={handleOpenModal} 
-            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2"
-          >
+        <div className="flex gap-4 order-2 md:order-3">
+          <button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -122,16 +97,11 @@ const NavBar = () => {
               <span>Go To</span>
             </a>
           </Link>
+          <Suspense fallback={<p>avatar...</p>}>
+            <Avatar />
+          </Suspense>
         </div>
       </div>
-
-      <AddPublication
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onSubmit={handleAddPublication}
-      />
     </nav>
   );
-};
-
-export default NavBar;
+}

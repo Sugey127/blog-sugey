@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 
-export default function Card({ cards, showAdminButtons }) {
+export default async function Card({ cards, showAdminButtons }) {
   const [openMenuIndex, setOpenMenuIndex] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
