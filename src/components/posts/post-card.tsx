@@ -45,7 +45,6 @@ export function PostCard({
               onClick={() => setIsCommentsShowed(!isCommentsShowed)}
               className="menu-button text-gray-600 hover:text-gray-900 focus:outline-none"
             >
-              X
               <svg
                 className="w-6 h-6"
                 fill="none"
