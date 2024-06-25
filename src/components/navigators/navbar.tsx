@@ -1,9 +1,8 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Avatar } from "../users/avatar";
-import { Suspense } from "react";
+// import { Suspense } from "react";
+// import { GetAvatar } from "../users/get-avatar";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -32,12 +31,12 @@ export function Navbar() {
           <ul className="flex font-semibold justify-between">
             <li
               className={`md:px-4 md:py-2 ${
-                pathname === "/myPublications"
+                pathname === "/my-posts"
                   ? "text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
                   : "hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-green-400 to-blue-500"
               }`}
             >
-              <Link href="/myPublications" legacyBehavior>
+              <Link href="/my-posts" legacyBehavior>
                 <a>My Publications</a>
               </Link>
             </li>
@@ -97,9 +96,9 @@ export function Navbar() {
               <span>Go To</span>
             </a>
           </Link>
-          <Suspense fallback={<p>avatar...</p>}>
-            <Avatar />
-          </Suspense>
+          {/* <Suspense fallback={<p>avatar...</p>}>
+          <GetAvatar size={36} />
+          </Suspense> */}
         </div>
       </div>
     </nav>

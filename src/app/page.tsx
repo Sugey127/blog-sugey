@@ -1,6 +1,33 @@
+"use client";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
+import { singInAction } from './sign-in-action';
 
 export default function Home() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    // const { apiAuthRepository } = inyectionContainer();
+
+    try {
+      // const auth = await apiAuthRepository.signIn({ email, password });
+      const isAuthenticated = await singInAction({ email, password });
+      if (isAuthenticated) {
+        console.log(isAuthenticated)
+        router.push('/publications');
+      } else {
+        setErrorMessage('Datos incorrectos, por favor intente de nuevo.');
+      }
+    } catch (error) {
+      setErrorMessage('Error de conexión, por favor intente de nuevo.');
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="container">
@@ -8,8 +35,13 @@ export default function Home() {
           <div className="w-full max-w-md">
             <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-2xl shadow-lg transition-all duration-200 transform hover:shadow-xl">
               <div className="bg-gray-800 p-6 rounded-b-lg transition-all duration-200 transform hover:scale-95 hover:rounded-lg">
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleLogin}>
                   <p className="text-center text-white text-xl font-semibold mb-6">Login</p>
+                  {errorMessage && (
+                    <div className="bg-yellow-500 text-black text-center p-2 rounded">
+                      {errorMessage}
+                    </div>
+                  )}
                   <div className="flex items-center bg-gray-800 rounded-full p-3 shadow-inner">
                     <svg
                       viewBox="0 0 16 16"
@@ -21,8 +53,10 @@ export default function Home() {
                     <input
                       type="text"
                       className="bg-transparent border-none outline-none w-full text-gray-300 ml-3"
-                      placeholder="Username"
+                      placeholder="Email"
                       autoComplete="off"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="flex items-center bg-gray-800 rounded-full p-3 shadow-inner">
@@ -37,16 +71,18 @@ export default function Home() {
                       type="password"
                       className="bg-transparent border-none outline-none w-full text-gray-300 ml-3"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="flex justify-center mt-6 space-x-3">
-                    <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
+                    <button type="submit" className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
                       Login
                     </button>
-                    <Link href="/sing-up" legacyBehavior>
-                    <button className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
-                      Sign Up
-                    </button>
+                    <Link href="/sign-up">
+                      <button type="button" className="bg-gray-700 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-200">
+                        Sign Up
+                      </button>
                     </Link>
                   </div>
                   <button className="bg-gray-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded w-full mt-4 transition duration-200">

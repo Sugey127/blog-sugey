@@ -17,8 +17,8 @@ export default function AddPublication({ isOpen, onClose, onSubmit }) {
 
   const handleCloseConfirm = async () => {
     setIsConfirmOpen(false);
-    const { apiPostRepository } = inyectionContainer();
-    await apiPostRepository.getAll();
+    // const { apiPostRepository } = inyectionContainer();
+    // await apiPostRepository.getAll();
   };
 
   const handleSubmit = async () => {
